@@ -249,7 +249,27 @@
     >
       <i class="fa fa-file-text-o mr-2 text-gray-500"></i>2-1 拓扑空间
     </a>
-  </li>
+  </li><!-- 新增的PDF文件链接 -->
+    <li>
+      <a
+        href="#"
+        class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+        data-file="【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings.pdf"
+      >
+        <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings
+      </a>
+    </li>
+    
+    <li>
+      <a
+        href="#"
+        class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+        data-file="【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings.pdf"
+      >
+        <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings
+      </a>
+    </li>
+  </ul>
             <li>
               <a
                 href="#"
@@ -324,121 +344,152 @@
         <p class="mt-1">祝你GPA步步高升</p>
       </div>
     </footer>
+<script>
+  // DOM元素
+  const sidebarToggle = document.getElementById("sidebar-toggle");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+  const contentContainer = document.getElementById("content-container");
+  const currentToc = document.getElementById("current-toc");
+  const themeToggle = document.getElementById("theme-toggle");
+  const fontSizeToggle = document.getElementById("font-size-toggle");
+  const fileLinks = document.querySelectorAll(".file-link");
 
-    <!-- 【重要】请用下面这段代码完整替换你原来的整个 <script> 块 -->
-    <script>
-      
-      // DOM元素
-      const sidebarToggle = document.getElementById("sidebar-toggle");
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      const contentContainer = document.getElementById("content-container");
-      const currentToc = document.getElementById("current-toc");
-      const themeToggle = document.getElementById("theme-toggle");
-      const fontSizeToggle = document.getElementById("font-size-toggle");
-      const fileLinks = document.querySelectorAll(".file-link");
+  // 移动端侧边栏切换
+  sidebarToggle.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+    overlay.classList.toggle("show");
+  });
 
-      // 移动端侧边栏切换
-      sidebarToggle.addEventListener("click", () => {
-        sidebar.classList.toggle("open");
-        overlay.classList.toggle("show");
-      });
+  overlay.addEventListener("click", () => {
+    sidebar.classList.remove("open");
+    overlay.classList.remove("show");
+  });
 
-      overlay.addEventListener("click", () => {
+  // 主题切换
+  let isDarkMode = false;
+  themeToggle.addEventListener("click", () => {
+    isDarkMode = !isDarkMode;
+    document.body.classList.toggle("bg-gray-900", isDarkMode);
+    document.body.classList.toggle("bg-gray-50", !isDarkMode);
+    document.body.classList.toggle("text-gray-200", isDarkMode);
+    document.body.classList.toggle("text-gray-800", !isDarkMode);
+
+    const contentBg = document.querySelector("#content-container");
+    contentBg.classList.toggle("bg-gray-800", isDarkMode);
+    contentBg.classList.toggle("bg-white", !isDarkMode);
+    contentBg.classList.toggle("dark-mode", isDarkMode);
+
+    themeToggle.innerHTML = isDarkMode
+      ? '<i class="fa fa-sun-o text-xl"></i>'
+      : '<i class="fa fa-moon-o text-xl"></i>';
+  });
+
+  // 字体大小调整
+  let fontSizeLevel = 1;
+  fontSizeToggle.addEventListener("click", () => {
+    fontSizeLevel = (fontSizeLevel % 3) + 1;
+    const content = document.querySelector("#content-container");
+    switch (fontSizeLevel) {
+      case 1: content.style.fontSize = "1rem"; break;
+      case 2: content.style.fontSize = "1.1rem"; break;
+      case 3: content.style.fontSize = "1.2rem"; break;
+    }
+  });
+
+  // 【最简单方案】加载文件函数
+  function loadFile(filePath) {
+    // 移除所有文件链接的活跃状态
+    fileLinks.forEach((link) =>
+      link.classList.remove("bg-blue-50", "text-primary", "font-medium")
+    );
+
+    // 设置当前文件链接为活跃状态
+    const activeLink = document.querySelector(
+      `.file-link[data-file="${filePath}"]`
+    );
+    if (activeLink) {
+      activeLink.classList.add("bg-blue-50", "text-primary", "font-medium");
+    }
+    
+    // 检查文件类型
+    if (filePath.endsWith('.pdf')) {
+      // PDF文件：显示友好的提示页面
+      loadPDF(filePath);
+    } else {
+      // HTML文件：使用iframe加载
+      loadHTML(filePath);
+    }
+  }
+
+  // 加载PDF - 简单版本
+  function loadPDF(filePath) {
+    contentContainer.style.display = 'block';
+    contentContainer.style.padding = '2rem';
+    
+    contentContainer.innerHTML = `
+      <div class="text-center py-8">
+        <i class="fa fa-file-pdf-o text-6xl mb-6 text-red-400"></i>
+        <h2 class="text-2xl font-bold mb-4">PDF 讲义</h2>
+        <p class="text-gray-600 mb-8">选择您想要的操作：</p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a 
+            href="${filePath}" 
+            target="_blank"
+            class="inline-flex items-center px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-smooth text-lg"
+          >
+            <i class="fa fa-eye mr-2"></i>
+            在线查看
+          </a>
+          
+          <a 
+            href="${filePath}" 
+            download
+            class="inline-flex items-center px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-smooth text-lg"
+          >
+            <i class="fa fa-download mr-2"></i>
+            下载文件
+          </a>
+        </div>
+      </div>
+    `;
+    
+    currentToc.innerHTML = '<li class="text-gray-500 italic px-3 py-2">PDF文件</li>';
+  }
+
+  // 加载HTML文件
+  function loadHTML(filePath) {
+    contentContainer.style.display = 'flex';
+    contentContainer.style.flexDirection = 'column';
+    contentContainer.style.padding = '0';
+    contentContainer.innerHTML = '';
+
+    const iframe = document.createElement("iframe");
+    iframe.src = filePath;
+    iframe.style.flexGrow = '1';
+    iframe.style.width = '100%';
+    iframe.style.border = 'none';
+    
+    contentContainer.appendChild(iframe);
+    
+    currentToc.innerHTML = '<li class="text-gray-500 italic px-3 py-2">HTML文件无可用目录</li>';
+  }
+
+  // 为所有文件链接绑定点击事件
+  fileLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const filePath = link.getAttribute("data-file");
+      loadFile(filePath);
+
+      // 在移动设备上点击后关闭侧边栏
+      if (window.innerWidth <= 768) {
         sidebar.classList.remove("open");
         overlay.classList.remove("show");
-      });
-
-      // 主题切换 (保留你的功能)
-      let isDarkMode = false;
-      themeToggle.addEventListener("click", () => {
-        isDarkMode = !isDarkMode;
-        document.body.classList.toggle("bg-gray-900", isDarkMode);
-        document.body.classList.toggle("bg-gray-50", !isDarkMode);
-        document.body.classList.toggle("text-gray-200", isDarkMode);
-        document.body.classList.toggle("text-gray-800", !isDarkMode);
-
-        const contentBg = document.querySelector("#content-container");
-        contentBg.classList.toggle("bg-gray-800", isDarkMode);
-        contentBg.classList.toggle("bg-white", !isDarkMode);
-        contentBg.classList.toggle("dark-mode", isDarkMode);
-
-        themeToggle.innerHTML = isDarkMode
-          ? '<i class="fa fa-sun-o text-xl"></i>'
-          : '<i class="fa fa-moon-o text-xl"></i>';
-      });
-
-      // 字体大小调整 (保留你的功能)
-      let fontSizeLevel = 1;
-      fontSizeToggle.addEventListener("click", () => {
-        fontSizeLevel = (fontSizeLevel % 3) + 1;
-        const content = document.querySelector("#content-container");
-        switch (fontSizeLevel) {
-          case 1: content.style.fontSize = "1rem"; break;
-          case 2: content.style.fontSize = "1.1rem"; break;
-          case 3: content.style.fontSize = "1.2rem"; break;
-        }
-      });
-
-      // 【核心功能】加载HTML文件到内容区 (最终版，解决高度问题)
-      function loadFile(filePath) {
-        // 移除所有文件链接的活跃状态
-        fileLinks.forEach((link) =>
-          link.classList.remove("bg-blue-50", "text-primary", "font-medium")
-        );
-
-        // 设置当前文件链接为活跃状态
-        const activeLink = document.querySelector(
-          `.file-link[data-file="${filePath}"]`
-        );
-        if (activeLink) {
-          activeLink.classList.add("bg-blue-50", "text-primary", "font-medium");
-        }
-        
-        // --- 以下是关键修改 ---
-
-        // 1. 让父容器变为一个垂直方向的弹性盒子
-        contentContainer.style.display = 'flex';
-        contentContainer.style.flexDirection = 'column';
-
-        // 2. 清空内容并移除内边距
-        contentContainer.innerHTML = "";
-        contentContainer.style.padding = '0';
-
-        // 3. 创建 iframe
-        const iframe = document.createElement("iframe");
-        iframe.src = filePath;
-
-        // 4. 【最关键】让 iframe 自动伸展，填满所有可用空间
-        iframe.style.flexGrow = '1'; 
-        
-        // (不再需要 height: 100% 了)
-        iframe.style.width = '100%';
-        iframe.style.border = 'none';
-        
-        // 5. 将 iframe 添加到容器中
-        contentContainer.appendChild(iframe);
-
-        // 更新目录区域的提示信息
-        currentToc.innerHTML =
-          '<li class="text-gray-500 italic px-3 py-2">HTML文件无可用目录</li>';
       }
-      // 【重要】为所有文件链接绑定正确的点击事件
-      fileLinks.forEach((link) => {
-        link.addEventListener("click", (e) => {
-          e.preventDefault(); // 阻止链接的默认跳转行为
-          const filePath = link.getAttribute("data-file"); // 获取文件路径
-          loadFile(filePath); // 调用加载函数
-
-          // 在移动设备上点击后关闭侧边栏
-          if (window.innerWidth <= 768) {
-            sidebar.classList.remove("open");
-            overlay.classList.remove("show");
-          }
-        });
-      });
-
-      // =============================================================
-    </script>
+    });
+  });
+</script>
   </body>
 </html>
