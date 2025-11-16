@@ -1,4 +1,6 @@
-Ht# 第25节 Tychonoff定理
+
+
+# 第25节 Tychonoff定理
 ## 25-1 吉洪诺夫定理
 现在考虑第2部分中遗留下来的未解决的问题。我们将证明Tychonoff定理：任意多个紧致空间的积还是紧致空间。它的证明要用到Zorn引理(见第11节)。也有一个依赖于良序定理的证明，在习题中我们给出了这个证明方法的概要
 Tychonoff定理对分析学家非常有用(几何学家用的相对少些). 在第38节中, 我们用它构造完全正则空间的 Stone-Čech 紧致化, 并在第47节中用它来证明 Ascoli 定理的一般形式
@@ -27,12 +29,13 @@ $$
 
 不在所有集合  $A$  的交之中.
 
-你也许会说，“你选的不合适,如果在选定了  $x_{1} = \frac{1}{2}$  之后，再选  $x_{2} = \frac{2}{3}$ ，那么就找到了交  $\bigcap_{A \in A} A$  的一个点。”然而，因为在我们所设计的试探性的证明中， $x_{1}$  和  $x_{2}$  的选取是具有随意性的，所以这种“不好”的选取便难以避免了。
+你也许会说，“你选的不合适嘛！如果在选定了  $x_{1} = \frac{1}{2}$  之后，再选  $x_{2} = \frac{2}{3}$ ，那么就找到了交  $\bigcap_{A \in A} A$  的一个点。”然而，因为在我们所设计的试探性的证明中， $x_{1}$  和  $x_{2}$  的选取是具有随意性的，所以这种“不好”的选取便难以避免了。
+
 那么，怎样改进证明解决这个问题呢？
+
 这就引出了证明的第二个想法：也许我们可以扩大集族  $\mathcal{A}$  （当然还要保持有限交性质），藉此来制约  $x_{1}$  和  $x_{2}$  的选取，以确保我们做出一个“正确的”选择。例如，在前面的例子中，把集族  $\mathcal{A}$  扩大为以下椭圆形区域族  $\mathcal{D}$ ，其中每一个区域的边界都是以  $p = \left(\frac{1}{3},\frac{1}{3}\right)$  为一个焦点，而另一个焦点落在线段  $pq$  上。集族  $\mathcal{D}$  如图37.2所示。这个新族  $\mathcal{D}$  仍具有有限交性质，但是，如果你想在交
-$$
-\bigcap_ {D \in \mathcal{D}} \overline{\pi_{1}(D)}
-$$
+
+$$\bigcap_ {D \in \mathcal {D}} \overline {\pi_ {1} (D)}$$
 
 ![](2b55ac85dfd9f2ec866f7e97be7ad8a9e48fe7c7d9ea35396318561bfa7317cd.jpg)  
 图37.2
@@ -119,13 +122,13 @@ $$
 给定  $\alpha \in J$  ，令  $\pi_{\alpha}$  ：  $X\to X_{\alpha}$  为通常的投射．考虑  $X_{\alpha}$  的子集族
 
 $$
-\{\pi_ {\alpha} (D) \mid D \in \mathcal {D} \}.
+\{\pi_ {\alpha}(D) \mid D \in \mathcal {D} \}
 $$
 
 它具有有限交性质，这是因为  $\mathcal{D}$  具有有限交性质．由  $X_{\alpha}$  的紧致性，可以对于每一个  $\alpha$  ，选取一点  $x_{\alpha} \in X_{\alpha}$  ，使得
 
 $$
-x _ {\alpha} \in \bigcap_ {D \in \mathcal {D}} \overline {{\pi_ {\alpha} (D)}}.
+x _ {\alpha} \in \bigcap_ {D \in \mathcal {D}} \overline {\pi_ {\alpha} (D)}
 $$
 
 令  $\pmb{x}$  为  $X$  的一个点  $(x_{\alpha})_{\alpha \in J}$ ，我们将证明对于每一个  $D \in \mathcal{D}$ ， $\pmb{x} \in \overline{D}$ ，从而完成定理的证明。
