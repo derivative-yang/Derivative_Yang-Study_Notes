@@ -1,16 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>杨导的数学笔记</title>
+    
+    <!-- 引入外部库 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
-    <!-- 配置Tailwind -->
+
+    <!-- Tailwind 配置 -->
     <script>
       tailwind.config = {
         theme: {
@@ -31,6 +32,7 @@
       };
     </script>
 
+    <!-- 自定义样式 -->
     <style type="text/tailwindcss">
       @layer utilities {
         .content-auto {
@@ -49,26 +51,26 @@
     </style>
     
     <style>
-      /* 可选：美化标题（触发器）和 iframe 样式 */
+      /* 触发器样式 */
       .trigger {
         font-size: 20px;
-        cursor: pointer; /* 鼠标悬停显示“手”形，提示可点击 */
+        cursor: pointer; /* 鼠标悬停显示"手"形，提示可点击 */
         color: #0066cc;
         margin: 20px 0;
       }
       .trigger:hover {
-        text-decoration: underline; /*  hover 时加下划线，增强交互提示 */
+        text-decoration: underline; /* hover时加下划线，增强交互提示 */
       }
+      
+      /* iframe样式 */
       iframe {
         width: 100%;
-        height: 80vh; /* 占视口高度 80%，避免内容过短 */
+        height: 80vh; /* 占视口高度80%，避免内容过短 */
         border: 1px solid #ccc;
         margin-top: 10px;
       }
-    </style>
 
-    <style>
-      /* 欢迎信息的容器，也是我们加载内容的目标盒子 */
+      /* 欢迎信息容器样式 */
       #content-display-box {
         flex-grow: 1; /* 占据父元素的剩余空间 */
         border: 2px dashed #ccc; /* 添加虚线边框以突出显示区域 */
@@ -76,18 +78,18 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        /* 以下是你提供的样式，为了便于观察，我做了一些调整 */
         text-align: center;
         padding: 3rem 0; /* py-12 */
         color: #6b7280; /* text-gray-500 */
       }
 
-      /* 动态创建的 iframe 样式 */
+      /* 动态创建的iframe样式 */
       #content-display-box iframe {
         width: 100%;
         height: 100%;
         border: none;
       }
+
       /* 基础样式 */
       html {
         scroll-behavior: smooth;
@@ -97,7 +99,7 @@
         overflow-x: hidden;
       }
 
-      /* 新增暗黑模式文本样式 */
+      /* 暗黑模式文本样式 */
       .dark-mode .markdown p,
       .dark-mode .markdown li,
       .dark-mode .markdown blockquote {
@@ -118,12 +120,10 @@
         color: #f3f4f6; /* 更亮的标题色 */
       }
 
-      /* 代码块在暗黑模式下的适配 */
+      /* 代码块暗黑模式适配 */
       .dark-mode .markdown pre {
         background-color: #1f2937;
       }
-
-      
 
       /* 自定义块样式 */
       .note-block {
@@ -142,7 +142,6 @@
       .toc-item.active {
         @apply bg-blue-50 text-primary font-medium;
       }
-
 
       /* 动画效果 */
       .fade-in {
@@ -188,16 +187,13 @@
           display: block;
         }
       }
-      
     </style>
-    
   </head>
+
   <body class="bg-gray-50 text-gray-800">
     <!-- 顶部导航栏 -->
     <header class="bg-white shadow-sm sticky top-0 z-30">
-      <div
-        class="container mx-auto px-4 py-3 flex items-center justify-between"
-      >
+      <div class="container mx-auto px-4 py-3 flex items-center justify-between">
         <div class="flex items-center">
           <button
             id="sidebar-toggle"
@@ -208,12 +204,14 @@
           <h1 class="text-xl font-bold text-primary">杨导的数学笔记</h1>
         </div>
         <div class="flex items-center space-x-4">
+          <!-- 主题切换按钮 -->
           <button
             id="theme-toggle"
             class="text-gray-600 hover:text-primary transition-smooth"
           >
             <i class="fa fa-moon-o text-xl"></i>
           </button>
+          <!-- 字体大小切换按钮 -->
           <button
             id="font-size-toggle"
             class="text-gray-600 hover:text-primary transition-smooth"
@@ -224,94 +222,235 @@
       </div>
     </header>
 
-    <!-- 遮罩层 (移动端) -->
+    <!-- 移动端遮罩层 -->
     <div id="overlay" class="overlay"></div>
 
+    <!-- 主容器 -->
     <div class="container mx-auto flex flex-col lg:flex-row">
       <!-- 左侧边栏 -->
       <aside
         id="sidebar"
         class="sidebar bg-white w-full lg:w-64 p-4 lg:h-[calc(100vh-60px)] lg:sticky lg:top-16 overflow-y-auto transition-smooth"
       >
+        <!-- 几何学部分 -->
         <div class="mb-6">
           <h2 class="text-lg font-semibold mb-3 text-gray-800 border-b pb-2">
-            点集拓扑学
+            几何学
           </h2>
 
+          <!-- 点集拓扑部分 -->
           <details>
-           <summary>第2节 拓扑空间</summary>
-          <ul class="space-y-1">
-          <li>
-    <a
-      href="#"
-      class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
-      data-file="2-1 拓扑空间.html"
-    >
-      <i class="fa fa-file-text-o mr-2 text-gray-500"></i>2-1 拓扑空间
-    </a>
-  </li><!-- 新增的PDF文件链接 -->
-    <li>
-      <a
-        href="#"
-        class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
-        data-file="【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings.pdf"
-      >
-        <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings
-      </a>
-    </li>
-    
-    <li>
-      <a
-        href="#"
-        class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
-        data-file="【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings.pdf"
-      >
-        <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings
-      </a>
-    </li>
-  </ul>
+            <summary>点集拓扑 Point Set Topology</summary>
+            <ul class="space-y-1">
+
+
+
+              <!-- 作者序 -->
+              <li class="text-gray-500 italic px-3 py-2">
+                拓扑学为现代数学提供了不可或缺的基础框架，其核心概念已成为数学界的通用语言
+              </li>
+
+
+
+
+
+
+
+
+              <!-- Markdown小节 -->
+              <li>
+                <a
+                  href="#"
+                  class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+                  data-file="【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings.html"
+                >
+                  <i class="fa fa-file-text-o mr-2 text-gray-500"></i>【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings 拓扑空间
+                </a>
+              </li>
+              
+              <!-- PDF小节 -->
+              <li>
+                <a
+                  href="#"
+                  class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+                  data-file="【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings.pdf"
+                >
+                  <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings
+                </a>
+              </li>
+
+              <!-- 后续章节结构类似，保持一致的缩进 -->
+              <li>
+                <a
+                  href="#"
+                  class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+                  data-file="【第2部分】连通性与紧致性 Connectivity & Compactness.html"
+                >
+                  <i class="fa fa-file-text-o mr-2 text-gray-500"></i>【第2部分】连通性与紧致性 Connectivity & Compactness
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="#"
+                  class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+                  data-file="【第2部分】连通性与紧致性 Connectivity & Compactness.pdf"
+                >
+                  <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第2部分】连通性与紧致性 Connectivity & Compactness
+                </a>
+              </li>
+
             <li>
-              <a
-                href="#"
-                class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
-                data-file="2-2 补拓扑与拓扑的比较.html"
-              >
-                <i class="fa fa-file-text-o mr-2 text-gray-500"></i>2-2 补拓扑与拓扑的比较
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
-                data-file="2-1 Exercise.html"
-              >
-                <i class="fa fa-file-text-o mr-2 text-gray-500"></i>2-1 Exercise
-              </a>
-            </li>
-            <li>
-    <a
-      href="#"
-      class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
-      data-file="【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings.html"
-    >
-      <i class="fa fa-file-text-o mr-2 text-gray-500"></i>【第1部分】拓扑空间与连续映射 Topological Spaces and Continuous Mappings 拓扑空间
+                <a
+                   href="#"
+                   class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+                   data-file="【第3部分】可数性公理与分离公理 Countability Axiom & Separation Axiom.html"
+                 >
+      <i class="fa fa-file-text-o mr-2 text-gray-500"></i>【第3部分】可数性公理与分离公理 Countability Axiom & Separation Axiom
     </a>
   </li>
+   <!-- 到此为止 -->
+       <!-- 这是一个pdf小节 -->
+    <li>
+      <a
+        href="#"
+        class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+        data-file="【第3部分】可数性公理与分离公理 Countability Axiom & Separation Axiom.pdf"
+      >
+        <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第3部分】可数性公理与分离公理 Countability Axiom & Separation Axiom
+      </a>
+    </li>
+     <!-- 到此为止 -->
+ <!-- 这是一个markdown小节 -->
+  <li>
+<a
+      href="#"
+      class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+      data-file="【第4部分】吉洪诺夫定理 Tychonoff's Theorem.html"
+    >
+      <i class="fa fa-file-text-o mr-2 text-gray-500"></i>【第4部分】吉洪诺夫定理 Tychonoff's Theorem
+    </a>
+  </li>
+   <!-- 到此为止 -->
+     <!-- 这是一个pdf小节 -->
+    <li>
+      <a
+        href="#"
+        class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+        data-file="【第4部分】吉洪诺夫定理 Tychonoff's Theorem.pdf"
+      >
+        <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第4部分】吉洪诺夫定理 Tychonoff's Theorem
+      </a>
+    </li>
+     <!-- 到此为止 -->
+ <!-- 这是一个markdown小节 -->
+  <li>
+<a
+      href="#"
+      class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+      data-file="【第5部分】 度量化定理与仿紧致性 Metrication Theorem & Paracompactness.html"
+    >
+      <i class="fa fa-file-text-o mr-2 text-gray-500"></i>【第5部分】 度量化定理与仿紧致性 Metrication Theorem & Paracompactness
+    </a>
+  </li>
+   <!-- 到此为止 -->
+     <!-- 这是一个pdf小节 -->
+    <li>
+      <a
+        href="#"
+        class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+        data-file="【第5部分】 度量化定理与仿紧致性 Metrication Theorem & Paracompactness.pdf"
+      >
+        <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第5部分】 度量化定理与仿紧致性 Metrication Theorem & Paracompactness
+      </a>
+    </li>
+     <!-- 到此为止 -->
+ <!-- 这是一个markdown小节 -->
+  <li>
+<a
+      href="#"
+      class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+      data-file="【第6部分】完备度量空间与函数空间 Complete Metric Space & Function Space.html"
+    >
+      <i class="fa fa-file-text-o mr-2 text-gray-500"></i>【第6部分】完备度量空间与函数空间 Complete Metric Space & Function Space
+    </a>
+  </li>
+   <!-- 到此为止 -->
+     <!-- 这是一个pdf小节 -->
+    <li>
+      <a
+        href="#"
+        class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+        data-file="【第6部分】完备度量空间与函数空间 Complete Metric Space & Function Space.pdf"
+      >
+        <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第6部分】完备度量空间与函数空间 Complete Metric Space & Function Space
+      </a>
+    </li>
+     <!-- 到此为止 -->
+ <!-- 这是一个markdown小节 -->
+  <li>
+<a
+      href="#"
+      class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+      data-file="【第7部分】贝尔空间和维数论 Baire Space & Dimensionality Theory.html"
+    >
+      <i class="fa fa-file-text-o mr-2 text-gray-500"></i>【第7部分】贝尔空间和维数论 Baire Space & Dimensionality Theory
+    </a>
+  </li>
+   <!-- 到此为止 -->
+     <!-- 这是一个pdf小节 -->
+    <li>
+      <a
+        href="#"
+        class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
+        data-file="【第7部分】贝尔空间和维数论 Baire Space & Dimensionality Theory.pdf"
+      >
+        <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第7部分】贝尔空间和维数论 Baire Space & Dimensionality Theory
+      </a>
+    </li>
+     <!-- 到此为止 -->
+              
+            </ul>
+          </details>
+          
+          <!-- 点集拓扑结束 -->
+
+          <!-- 代数拓扑部分 -->
+          <details>
+            <summary>代数拓扑 Algebraic Topology</summary>
+            <ul class="space-y-1">
+              <!-- 作者序 -->
+              <li class="text-gray-500 italic px-3 py-2">
+                未完待续
+              </li>
+              <!-- 内容待添加 -->
+            </ul>
+          </details>
+        </div>
+
+        <!-- 代数学部分 -->
+        <div>
+          <h2 class="text-lg font-semibold mb-3 text-gray-800 border-b pb-2">
+            代数学
+          </h2>
+          <ul id="current-toc" class="space-y-1 text-sm">
+            <!-- 目录将通过JavaScript动态生成 -->
             <li>
               <a
                 href="#"
                 class="file-link block px-3 py-2 rounded hover:bg-gray-100 transition-smooth"
-                data-file="素材.html"
+                data-file="【第7部分】贝尔空间和维数论 Baire Space & Dimensionality Theory.pdf"
               >
-                <i class="fa fa-file-text-o mr-2 text-gray-500"></i>素材
+                <i class="fa fa-file-pdf-o mr-2 text-red-500"></i>【第7部分】贝尔空间和维数论 Baire Space & Dimensionality Theory
               </a>
             </li>
-
           </ul>
-          </details>
+        </div>
+
+        <!-- 第二个代数学部分（可能是重复的，保持原样） -->
         <div>
           <h2 class="text-lg font-semibold mb-3 text-gray-800 border-b pb-2">
-            当前文件目录
+            代数学
           </h2>
           <ul id="current-toc" class="space-y-1 text-sm">
             <!-- 目录将通过JavaScript动态生成 -->
@@ -328,6 +467,7 @@
           id="content-container"
           class="bg-white rounded-lg shadow-soft p-6 lg:p-8 min-h-[calc(100vh-60px)] fade-in"
         >
+          <!-- 欢迎页面 -->
           <div class="text-center py-12 text-gray-500">
             <i class="fa fa-book text-5xl mb-4 text-gray-300"></i>
             <h2 class="text-xl mb-2">欢迎访问杨导的数学笔记</h2>
@@ -344,152 +484,169 @@
         <p class="mt-1">祝你GPA步步高升</p>
       </div>
     </footer>
-<script>
-  // DOM元素
-  const sidebarToggle = document.getElementById("sidebar-toggle");
-  const sidebar = document.getElementById("sidebar");
-  const overlay = document.getElementById("overlay");
-  const contentContainer = document.getElementById("content-container");
-  const currentToc = document.getElementById("current-toc");
-  const themeToggle = document.getElementById("theme-toggle");
-  const fontSizeToggle = document.getElementById("font-size-toggle");
-  const fileLinks = document.querySelectorAll(".file-link");
 
-  // 移动端侧边栏切换
-  sidebarToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("open");
-    overlay.classList.toggle("show");
-  });
+    <!-- JavaScript代码 -->
+    <script>
+      // DOM元素获取
+      const sidebarToggle = document.getElementById("sidebar-toggle");
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      const contentContainer = document.getElementById("content-container");
+      const currentToc = document.getElementById("current-toc");
+      const themeToggle = document.getElementById("theme-toggle");
+      const fontSizeToggle = document.getElementById("font-size-toggle");
+      const fileLinks = document.querySelectorAll(".file-link");
 
-  overlay.addEventListener("click", () => {
-    sidebar.classList.remove("open");
-    overlay.classList.remove("show");
-  });
+      // 移动端侧边栏切换功能
+      sidebarToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+        overlay.classList.toggle("show");
+      });
 
-  // 主题切换
-  let isDarkMode = false;
-  themeToggle.addEventListener("click", () => {
-    isDarkMode = !isDarkMode;
-    document.body.classList.toggle("bg-gray-900", isDarkMode);
-    document.body.classList.toggle("bg-gray-50", !isDarkMode);
-    document.body.classList.toggle("text-gray-200", isDarkMode);
-    document.body.classList.toggle("text-gray-800", !isDarkMode);
-
-    const contentBg = document.querySelector("#content-container");
-    contentBg.classList.toggle("bg-gray-800", isDarkMode);
-    contentBg.classList.toggle("bg-white", !isDarkMode);
-    contentBg.classList.toggle("dark-mode", isDarkMode);
-
-    themeToggle.innerHTML = isDarkMode
-      ? '<i class="fa fa-sun-o text-xl"></i>'
-      : '<i class="fa fa-moon-o text-xl"></i>';
-  });
-
-  // 字体大小调整
-  let fontSizeLevel = 1;
-  fontSizeToggle.addEventListener("click", () => {
-    fontSizeLevel = (fontSizeLevel % 3) + 1;
-    const content = document.querySelector("#content-container");
-    switch (fontSizeLevel) {
-      case 1: content.style.fontSize = "1rem"; break;
-      case 2: content.style.fontSize = "1.1rem"; break;
-      case 3: content.style.fontSize = "1.2rem"; break;
-    }
-  });
-
-  // 【最简单方案】加载文件函数
-  function loadFile(filePath) {
-    // 移除所有文件链接的活跃状态
-    fileLinks.forEach((link) =>
-      link.classList.remove("bg-blue-50", "text-primary", "font-medium")
-    );
-
-    // 设置当前文件链接为活跃状态
-    const activeLink = document.querySelector(
-      `.file-link[data-file="${filePath}"]`
-    );
-    if (activeLink) {
-      activeLink.classList.add("bg-blue-50", "text-primary", "font-medium");
-    }
-    
-    // 检查文件类型
-    if (filePath.endsWith('.pdf')) {
-      // PDF文件：显示友好的提示页面
-      loadPDF(filePath);
-    } else {
-      // HTML文件：使用iframe加载
-      loadHTML(filePath);
-    }
-  }
-
-  // 加载PDF - 简单版本
-  function loadPDF(filePath) {
-    contentContainer.style.display = 'block';
-    contentContainer.style.padding = '2rem';
-    
-    contentContainer.innerHTML = `
-      <div class="text-center py-8">
-        <i class="fa fa-file-pdf-o text-6xl mb-6 text-red-400"></i>
-        <h2 class="text-2xl font-bold mb-4">PDF 讲义</h2>
-        <p class="text-gray-600 mb-8">选择您想要的操作：</p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a 
-            href="${filePath}" 
-            target="_blank"
-            class="inline-flex items-center px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-smooth text-lg"
-          >
-            <i class="fa fa-eye mr-2"></i>
-            在线查看
-          </a>
-          
-          <a 
-            href="${filePath}" 
-            download
-            class="inline-flex items-center px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-smooth text-lg"
-          >
-            <i class="fa fa-download mr-2"></i>
-            下载文件
-          </a>
-        </div>
-      </div>
-    `;
-    
-    currentToc.innerHTML = '<li class="text-gray-500 italic px-3 py-2">PDF文件</li>';
-  }
-
-  // 加载HTML文件
-  function loadHTML(filePath) {
-    contentContainer.style.display = 'flex';
-    contentContainer.style.flexDirection = 'column';
-    contentContainer.style.padding = '0';
-    contentContainer.innerHTML = '';
-
-    const iframe = document.createElement("iframe");
-    iframe.src = filePath;
-    iframe.style.flexGrow = '1';
-    iframe.style.width = '100%';
-    iframe.style.border = 'none';
-    
-    contentContainer.appendChild(iframe);
-    
-    currentToc.innerHTML = '<li class="text-gray-500 italic px-3 py-2">HTML文件无可用目录</li>';
-  }
-
-  // 为所有文件链接绑定点击事件
-  fileLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const filePath = link.getAttribute("data-file");
-      loadFile(filePath);
-
-      // 在移动设备上点击后关闭侧边栏
-      if (window.innerWidth <= 768) {
+      // 点击遮罩层关闭侧边栏
+      overlay.addEventListener("click", () => {
         sidebar.classList.remove("open");
         overlay.classList.remove("show");
+      });
+
+      // 主题切换功能
+      let isDarkMode = false;
+      themeToggle.addEventListener("click", () => {
+        isDarkMode = !isDarkMode;
+        document.body.classList.toggle("bg-gray-900", isDarkMode);
+        document.body.classList.toggle("bg-gray-50", !isDarkMode);
+        document.body.classList.toggle("text-gray-200", isDarkMode);
+        document.body.classList.toggle("text-gray-800", !isDarkMode);
+
+        const contentBg = document.querySelector("#content-container");
+        contentBg.classList.toggle("bg-gray-800", isDarkMode);
+        contentBg.classList.toggle("bg-white", !isDarkMode);
+        contentBg.classList.toggle("dark-mode", isDarkMode);
+
+        // 切换图标
+        themeToggle.innerHTML = isDarkMode
+          ? '<i class="fa fa-sun-o text-xl"></i>'
+          : '<i class="fa fa-moon-o text-xl"></i>';
+      });
+
+      // 字体大小调整功能
+      let fontSizeLevel = 1;
+      fontSizeToggle.addEventListener("click", () => {
+        fontSizeLevel = (fontSizeLevel % 3) + 1;
+        const content = document.querySelector("#content-container");
+        switch (fontSizeLevel) {
+          case 1: 
+            content.style.fontSize = "1rem"; 
+            break;
+          case 2: 
+            content.style.fontSize = "1.1rem"; 
+            break;
+          case 3: 
+            content.style.fontSize = "1.2rem"; 
+            break;
+        }
+      });
+
+      /**
+       * 加载文件函数
+       * @param {string} filePath - 文件路径
+       */
+      function loadFile(filePath) {
+        // 移除所有文件链接的活跃状态
+        fileLinks.forEach((link) =>
+          link.classList.remove("bg-blue-50", "text-primary", "font-medium")
+        );
+
+        // 设置当前文件链接为活跃状态
+        const activeLink = document.querySelector(
+          `.file-link[data-file="${filePath}"]`
+        );
+        if (activeLink) {
+          activeLink.classList.add("bg-blue-50", "text-primary", "font-medium");
+        }
+        
+        // 根据文件类型调用不同的加载函数
+        if (filePath.endsWith('.pdf')) {
+          loadPDF(filePath); // PDF文件
+        } else {
+          loadHTML(filePath); // HTML文件
+        }
       }
-    });
-  });
-</script>
+
+      /**
+       * 加载PDF文件 - 显示友好的提示页面
+       * @param {string} filePath - PDF文件路径
+       */
+      function loadPDF(filePath) {
+        contentContainer.style.display = 'block';
+        contentContainer.style.padding = '2rem';
+        
+        contentContainer.innerHTML = `
+          <div class="text-center py-8">
+            <i class="fa fa-file-pdf-o text-6xl mb-6 text-red-400"></i>
+            <h2 class="text-2xl font-bold mb-4">PDF 讲义</h2>
+            <p class="text-gray-600 mb-8">选择您想要的操作：</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a 
+                href="${filePath}" 
+                target="_blank"
+                class="inline-flex items-center px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-smooth text-lg"
+              >
+                <i class="fa fa-eye mr-2"></i>
+                在线查看
+              </a>
+              
+              <a 
+                href="${filePath}" 
+                download
+                class="inline-flex items-center px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-smooth text-lg"
+              >
+                <i class="fa fa-download mr-2"></i>
+                下载文件
+              </a>
+            </div>
+          </div>
+        `;
+        
+        currentToc.innerHTML = '<li class="text-gray-500 italic px-3 py-2">PDF文件</li>';
+      }
+
+      /**
+       * 加载HTML文件 - 使用iframe加载
+       * @param {string} filePath - HTML文件路径
+       */
+      function loadHTML(filePath) {
+        contentContainer.style.display = 'flex';
+        contentContainer.style.flexDirection = 'column';
+        contentContainer.style.padding = '0';
+        contentContainer.innerHTML = '';
+
+        const iframe = document.createElement("iframe");
+        iframe.src = filePath;
+        iframe.style.flexGrow = '1';
+        iframe.style.width = '100%';
+        iframe.style.border = 'none';
+        
+        contentContainer.appendChild(iframe);
+        
+        currentToc.innerHTML = '<li class="text-gray-500 italic px-3 py-2">HTML文件无可用目录</li>';
+      }
+
+      // 为所有文件链接绑定点击事件
+      fileLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const filePath = link.getAttribute("data-file");
+          loadFile(filePath);
+
+          // 在移动设备上点击后关闭侧边栏
+          if (window.innerWidth <= 768) {
+            sidebar.classList.remove("open");
+            overlay.classList.remove("show");
+          }
+        });
+      });
+    </script>
   </body>
 </html>
