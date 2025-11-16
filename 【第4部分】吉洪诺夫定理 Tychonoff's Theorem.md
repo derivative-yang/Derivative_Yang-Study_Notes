@@ -31,7 +31,7 @@ $$
 那么，怎样改进证明解决这个问题呢？
 这就引出了证明的第二个想法：也许我们可以扩大集族  $\mathcal{A}$  （当然还要保持有限交性质），藉此来制约  $x_{1}$  和  $x_{2}$  的选取，以确保我们做出一个“正确的”选择。例如，在前面的例子中，把集族  $\mathcal{A}$  扩大为以下椭圆形区域族  $\mathcal{D}$ ，其中每一个区域的边界都是以  $p = \left(\frac{1}{3},\frac{1}{3}\right)$  为一个焦点，而另一个焦点落在线段  $pq$  上。集族  $\mathcal{D}$  如图37.2所示。这个新族  $\mathcal{D}$  仍具有有限交性质，但是，如果你想在交
 $$
-\bigcap_ {D \in \mathcal{D}} \overline{{\pi_{1}(D)}}
+\bigcap_ {D \in \mathcal{D}} \overline{\pi_{1}(D)}
 $$
 
 ![](2b55ac85dfd9f2ec866f7e97be7ad8a9e48fe7c7d9ea35396318561bfa7317cd.jpg)  
